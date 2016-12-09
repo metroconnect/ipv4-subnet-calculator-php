@@ -103,6 +103,14 @@ $host_hex    = $sub->getHostPortionHex();    // 000000CB
 $host_binary = $sub->getHostPortionBinary(); // 00000000000000000000000011001011
 ```
 
+### Calculations
+```
+$in_subnet   = $sub->ipInSubnet('192.168.112.33');			// 1
+$in_subnet   = $sub->ipInSubnet('192.168.110.33');			// 0
+$next_subnet = $sub->nextSubnetInRange(21,'192.168.96.0/20');		// 192.168.120.0/21
+$next_subnet = $sub->->nextSubnetInRange(22,'192.168.112.0/20');	// 192.168.116.0/22
+```
+
 ### Reports
 
 #### Printed Report
@@ -243,6 +251,27 @@ IP Address Range:            192.168.112.0 - 192.168.113.255
 Broadcast Address:           192.168.113.255
 */
 ```
+
+#### ipInSubnet
+```php
+
+$testIP = "192.168.112.1";
+$sub = new IPv4\SubnetCalculator( '192.168.112.203', 23 );
+$inSubnet = $sub->ipInSubnet($testIP);
+echo $inSubnet ? "192.168.112.1 is in 192.168.112.203/23" : "192.168.112.1 is in 192.168.112.203/23";
+```
+
+#### nextSubnetInRange
+```php
+
+$nextIPSubnet = $sub->nextSubnetInRange(21,'192.168.96.0/19');
+echo "The next /21 subnet up from 192.168.112.0/23 in the 192.168.96.0/19 is: $nextIPSubnet\n";
+/*
+The next /21 subnet up from 192.168.112.0/23 in the 192.168.96.0/19 is: 192.168.120.0/21
+*/
+
+```
+
 
 Unit Tests
 ----------
