@@ -104,7 +104,7 @@ $host_binary = $sub->getHostPortionBinary(); // 00000000000000000000000011001011
 ```
 
 ### Calculations
-```
+```php
 $in_subnet   = $sub->ipInSubnet('192.168.112.33');			// 1
 $in_subnet   = $sub->ipInSubnet('192.168.110.33');			// 0
 $next_subnet = $sub->nextSubnetInRange(21,'192.168.96.0/20');		// 192.168.120.0/21
