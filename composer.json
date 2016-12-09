@@ -1,7 +1,7 @@
 {
-  "name": "markrogoyski/ipv4-subnet-calculator",
+  "name": "metroconnect/ipv4-subnet-calculator",
   "type": "library",
-  "description": "Network calculator for subnet mask and other classless (CIDR) network information.",
+  "description": "Network calculator for subnet mask and other classless (CIDR) network information. Forked from markrogoyski/ipv4-subnet-calculator.",
   "keywords": ["ipv4", "subnet", "calculator", "network", "cidr", "address", "ip"],
   "homepage": "https://github.com/markrogoyski/ipv4-subnet-calculator-php",
   "require": {
