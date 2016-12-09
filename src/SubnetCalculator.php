@@ -344,6 +344,45 @@ class SubnetCalculator
         return $this->__tostring();
     }
 
+
+    /**
+     * Test if an IP address is within the given range
+     * Adapted from http://php.net/manual/en/ref.network.php#74656
+     * @return boolean 
+     */
+    public function ipInSubnet($ipAddress)
+    {
+	$cidrNetwork = $this->getNetworkPortion();
+	$cidrMask = $this->network_size;
+		
+	$ipNet = ip2long ($cidrNetwork);
+    	$ipMask = ~((1 << (32 - $cidrMask)) - 1);
+
+    	$ipIP = ip2long ($ipAddress);
+    	$ipIPNet = $ipIP & $ipMask;
+
+    	return ($ipIPNet == $ipNet);
+	 
+    }
+
+    /**
+     * Get the next available subnet of a given length within the given CIDR block 
+     * For example: What is the next /22 block up from 192.168.112.0/23 in the 192.168.0.0/16 block
+     * @return string: CIDR subnet (e.g. '192.168.116/22')
+     */
+    public function nextSubnetInRange($maskLen, $cidrBlock)
+    {
+	$cidrBlockArray = explode('/',$cidrBlock);
+	$cidr = new SubnetCalculator($cidrBlockArray[0],$cidrBlockArray[1]);
+	$next = new SubnetCalculator($this->getNetworkPortion(),$maskLen);
+	$nextStart = long2ip(ip2long($next->getBroadcastAddress())+1);
+
+	return ($cidr->ipInSubnet($nextStart)) ? "$nextStart/$maskLen" : "";
+
+    }
+
+
+
     /**
      * Format as string a report of subnet calculations.
      * Contains IP address, subnet mask, network portion and host portion.
